@@ -71,6 +71,10 @@ class MainActivity : AppCompatActivity() {
 
     external fun testLog()
 
+    fun backObject(obj: Object) {
+        Timber.e("backObject:$obj")
+    }
+
     companion object {
         // Used to load the 'ndk' library on application startup.
         init {
