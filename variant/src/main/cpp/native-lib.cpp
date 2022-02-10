@@ -170,9 +170,33 @@ Java_com_mgg_ndk_MainActivity_testLog(JNIEnv *env, jobject thiz) {
   android_logger->critical("Use \"adb shell logcat\" to view this message.");
 }
 
+jobject getApplication(JNIEnv *env) {
+  jobject application = nullptr;
+  jclass activity_thread_clz = env->FindClass("android/app/ActivityThread");
+  if (activity_thread_clz != nullptr) {
+    jmethodID currentApplication = env->GetStaticMethodID(activity_thread_clz, "currentApplication", "()Landroid/app/Application;");
+    if (currentApplication != nullptr) {
+      application = env->CallStaticObjectMethod(activity_thread_clz, currentApplication);
+    } else {
+      printf("Cannot find method: currentApplication() in ActivityThread.");
+    }
+    env->DeleteLocalRef(activity_thread_clz);
+  } else {
+    printf("Cannot find class: android.app.ActivityThread");
+  }
+  return application;
+}
+
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_mgg_ndk_MainActivity_testDialog(JNIEnv *env, jobject activity, jobject listener) {
+  QAndroidJniObject javaString = QAndroidJniObject::fromString("test toast");
+  QAndroidJniObject toast = QAndroidJniObject::callStaticObjectMethod("android/widget/Toast", "makeText",
+                                                                        "(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;",
+                                                                        getApplication(env),
+                                                                        javaString.object(),
+                                                                        jint(1));
+  toast.callMethod<void>("show");
   QAndroidJniObject dialog = QAndroidJniObject(
           "android.app.AlertDialog$Builder",
           "(Landroid/content/Context;)V",
