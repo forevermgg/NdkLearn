@@ -1,5 +1,6 @@
 #include "qandroidjniobject.h"
-
+#include <string>
+#include <sstream>
 #include <qjni_p.h>
 
 /*!
@@ -2353,7 +2354,10 @@ QAndroidJniObject QAndroidJniObject::fromString(const std::string &string) {
   return QJNIObjectPrivate::fromString(string);
 }
 
-std::string QAndroidJniObject::toString() const { return d->toString(); }
+std::string QAndroidJniObject::toString() const {
+  const std::string msg = d->toString();
+  return msg;
+}
 
 bool QAndroidJniObject::isClassAvailable(const char *className) {
   return QJNIObjectPrivate::isClassAvailable(className);

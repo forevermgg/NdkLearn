@@ -9,11 +9,26 @@ cmake_minimum_required(VERSION 3.18.1)
 project("ndk")
 include_directories(variant)
 include_directories(include) # spdlog路径
+include_directories(qtbase)
 # find_package(mpark_variant 1.3.0 REQUIRED)
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
+
+add_library(qtbase
+        SHARED
+        qtbase/qjnihelpers_p.h
+        qtbase/qjnihelpers.cpp
+        qtbase/qjnionload.cpp
+        qtbase/qandroidjnienvironment.h
+        qtbase/qandroidjnienvironment.cpp
+        qtbase/qandroidjniobject.h
+        qtbase/qandroidjniobject.cpp
+        qtbase/qjni.cpp
+        qtbase/qjni_p.h
+        )
+
 add_library(variant
         SHARED
         variant/android_util.h
@@ -59,6 +74,7 @@ find_library( # Sets the name of the path variable.
 target_link_libraries( # Specifies the target library.
         ndk
         variant
+        qtbase
         # Links the target library to the log library
         # included in the NDK.
         ${log-lib})

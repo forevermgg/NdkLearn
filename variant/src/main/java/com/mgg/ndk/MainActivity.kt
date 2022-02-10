@@ -1,7 +1,11 @@
 package com.mgg.ndk
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
+import android.content.DialogInterface.BUTTON_NEGATIVE
+import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mgg.ndk.databinding.ActivityMainBinding
 import io.realm.internal.core.NativeRealmAny
@@ -53,8 +57,24 @@ class MainActivity : AppCompatActivity() {
         Timber.e("nativeCreateObjectId:${nativeCreateObjectId.asObjectId()}" + " objectId:${objectId}")
 
         testJson()
+        // testLog()
 
-        testLog()
+        binding.sampleText.setOnClickListener {
+            testDialog { dialog, which ->
+                when (which) {
+                    BUTTON_POSITIVE -> {
+                        Toast.makeText(this@MainActivity,"确认被点击", Toast.LENGTH_SHORT).show()
+                    }
+                    BUTTON_NEGATIVE -> {
+                        Toast.makeText(this@MainActivity,"取消被点击", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+
+                    }
+                }
+                Timber.e("DialogInterface.OnClickListener:${which} $dialog")
+            }
+        }
     }
 
     /**
@@ -74,6 +94,8 @@ class MainActivity : AppCompatActivity() {
     fun backObject(obj: Object) {
         Timber.e("backObject:$obj")
     }
+
+    external fun testDialog(param: DialogInterface.OnClickListener)
 
     companion object {
         // Used to load the 'ndk' library on application startup.

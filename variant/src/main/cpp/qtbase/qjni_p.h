@@ -3,6 +3,7 @@
 
 #include <jni.h>
 #include <memory>
+#include <string>
 #include "qglobal.h"
 
 struct QJNILocalRefDeleter {
@@ -33,7 +34,7 @@ class QJNIObjectData {
   jobject m_jobject;
   jclass m_jclass;
   bool m_own_jclass;
-  char *m_className;
+  std::string m_className;
 };
 
 class QJNIObjectPrivate {

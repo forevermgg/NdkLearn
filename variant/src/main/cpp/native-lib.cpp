@@ -3,6 +3,7 @@
 #include <variant.h>
 #include "spdlog/spdlog.h"
 #include <string>
+#include <qandroidjniobject.h>
 #include "spdlog/sinks/android_sink.h"
 #include "json.hpp"
 #include "log_utils.h"
@@ -82,7 +83,7 @@ Java_com_mgg_ndk_MainActivity_testScalarTypes(JNIEnv *env, jobject thiz) {
   {
     const int64_t kTestInt64 = 12345L;
     FOREVER::Variant v(kTestInt64);
-    LOGE("%d", v.int64_value());
+    // LOGE("%d", v.int64_value());
     LOGE("%d", v.is_int64());
     LOGE("%d", v.is_null());
     LOGE("%d", v.is_fundamental_type());
@@ -167,4 +168,43 @@ Java_com_mgg_ndk_MainActivity_testLog(JNIEnv *env, jobject thiz) {
   auto android_logger = spdlog::android_logger_mt("android", tag);
   android_logger->set_pattern("[%H:%M:%S %z] [%n] [%^---%L---%$] [thread %t] %v");
   android_logger->critical("Use \"adb shell logcat\" to view this message.");
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_mgg_ndk_MainActivity_testDialog(JNIEnv *env, jobject activity, jobject listener) {
+  QAndroidJniObject dialog = QAndroidJniObject(
+          "android.app.AlertDialog$Builder",
+          "(Landroid/content/Context;)V",
+          activity);
+  dialog.callObjectMethod(
+          "setMessage",
+          "(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;",
+          env->NewStringUTF("提示信息")
+  );
+  dialog.callObjectMethod(
+          "setTitle",
+          "(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;",
+          env->NewStringUTF("标题")
+  );
+  dialog.callObjectMethod(
+          "setNegativeButton",
+          "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;",
+          env->NewStringUTF("取消"),
+          // static_cast<jobject>(listener)
+          [=](){
+              __android_log_print(ANDROID_LOG_ERROR, "test", "Test setNegativeButton");
+              return static_cast<jobject>(listener);
+          }
+  );
+  dialog.callObjectMethod(
+          "setPositiveButton",
+          "(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;",
+          env->NewStringUTF("确定"),
+          static_cast<jobject>(listener)
+  );
+  dialog.callObjectMethod(
+          "show",
+          "()Landroid/app/AlertDialog;"
+  );
 }

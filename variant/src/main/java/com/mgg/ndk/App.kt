@@ -12,6 +12,7 @@ class App : Application() {
         } else {
             Timber.plant(CrashReportingTree())
         }
+        QtNative.setClassLoader(this.classLoader)
     }
 
     private class CrashReportingTree : Timber.Tree() {
