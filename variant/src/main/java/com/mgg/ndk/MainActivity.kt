@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     external fun testLog()
 
-    fun backObject(obj: Object) {
+    fun backObject(obj: Any) {
         Timber.e("backObject:$obj")
     }
 

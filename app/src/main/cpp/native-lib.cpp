@@ -53,7 +53,7 @@ Java_com_mgg_ndk_MainActivity_testScalarTypes(JNIEnv *env, jobject thiz) {
   {
     const int64_t kTestInt64 = 12345L;
     FOREVER::Variant v(kTestInt64);
-    LOGE("%d", v.int64_value());
+    LOGE("%lld", v.int64_value());
     LOGE("%d", v.is_int64());
     LOGE("%d", v.is_null());
     LOGE("%d", v.is_fundamental_type());
