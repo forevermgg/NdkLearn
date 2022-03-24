@@ -541,8 +541,8 @@ std::vector<unsigned char> JniByteArrayToVector(JNIEnv* env, jobject array) {
 // Convert a byte buffer and size into a jbyteArray.
 jbyteArray ByteBufferToJavaByteArray(JNIEnv* env, const uint8_t* data,
                                      size_t size) {
-  jbyteArray output_array = env->NewByteArray(size);
-  env->SetByteArrayRegion(output_array, 0, size,
+  jbyteArray output_array = env->NewByteArray(static_cast<int>(size));
+  env->SetByteArrayRegion(output_array, 0, static_cast<int>(size),
                           reinterpret_cast<const jbyte*>(data));
   return output_array;
 }
@@ -815,7 +815,7 @@ FOREVER::Variant JObjectArrayToVariant(JNIEnv* env, jobjectArray array) {
 
   // Loop through array converted each object into a Variant.
   for (size_t i = 0; i < len; ++i) {
-    jobject obj = env->GetObjectArrayElement(array, i);
+    jobject obj = env->GetObjectArrayElement(array, static_cast<int>(i));
     vec->push_back(JavaObjectToVariant(env, obj));
     env->DeleteLocalRef(obj);
   }
