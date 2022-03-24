@@ -1,10 +1,8 @@
 #include <android_util.h>
 #include <jni.h>
 #include <variant.h>
-#include "spdlog/spdlog.h"
 #include <string>
 #include <qandroidjniobject.h>
-#include "spdlog/sinks/android_sink.h"
 #include "json.hpp"
 #include "log_utils.h"
 
@@ -164,10 +162,6 @@ Java_com_mgg_ndk_MainActivity_testJson(JNIEnv *env, jobject thiz) {
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_mgg_ndk_MainActivity_testLog(JNIEnv *env, jobject thiz) {
-  std::string tag = "spdlog-android";
-  auto android_logger = spdlog::android_logger_mt("android", tag);
-  android_logger->set_pattern("[%H:%M:%S %z] [%n] [%^---%L---%$] [thread %t] %v");
-  android_logger->critical("Use \"adb shell logcat\" to view this message.");
 }
 
 jobject getApplication(JNIEnv *env) {

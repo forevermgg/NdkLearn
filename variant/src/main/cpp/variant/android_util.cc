@@ -1,5 +1,7 @@
 #include "android_util.h"
 
+#include <cassert>
+
 // Check for JNI exceptions, report them if any, and clear them.
 bool CheckAndClearJniExceptions(JNIEnv* env) {
   if (env->ExceptionCheck()) {

@@ -168,11 +168,6 @@ FOREVER::Variant JArrayToVariant(JNIEnv* env, jarray array);
 // all primitive types).
 FOREVER::Variant JObjectArrayToVariant(JNIEnv* env, jobjectArray array);
 
+static inline bool to_bool(jboolean b) { return b == JNI_TRUE; }
 
-static inline bool to_bool(jboolean b) {
-  return b == JNI_TRUE;
-}
-
-static inline jboolean to_jbool(bool b) {
-  return b ? JNI_TRUE : JNI_FALSE;
-}
+static inline jboolean to_jbool(bool b) { return b ? JNI_TRUE : JNI_FALSE; }

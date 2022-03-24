@@ -8,7 +8,6 @@ cmake_minimum_required(VERSION 3.18.1)
 # Declares and names the project.
 project("ndk")
 include_directories(variant)
-include_directories(include) # spdlog路径
 include_directories(qtbase)
 # find_package(mpark_variant 1.3.0 REQUIRED)
 # Creates and names a library, sets it as either STATIC
