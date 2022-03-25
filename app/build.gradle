@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    // id 'org.gradle.android.cache-fix'
 }
 
 android {
@@ -62,4 +63,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation(project(":breakpad"))
+    // implementation("org.gradle.android.cache-fix:org.gradle.android.cache-fix.gradle.plugin:2.5.0")
 }
