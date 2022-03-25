@@ -1,9 +1,8 @@
 #include "variant.h"
 
+#include <cassert>
 #include <climits>
 #include <cstdlib>
-
-#include <cassert>
 #include <iomanip>
 #include <sstream>
 
