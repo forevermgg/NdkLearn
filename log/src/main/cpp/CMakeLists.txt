@@ -39,6 +39,8 @@ add_library( # Sets the name of the library.
         thread_local.h
         thread_local.cc
         library_loader.cc
+        jni_weak_ref.h
+        jni_weak_ref.cc
         log.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
