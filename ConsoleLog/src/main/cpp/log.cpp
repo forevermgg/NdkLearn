@@ -2,10 +2,11 @@
 #include <string>
 #include "log_settings.h"
 #include "logging.h"
+#include "scoped_java_ref.h"
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_mgg_log_Logging_initConsoleLog(JNIEnv *env, jclass clazz) {
+Java_com_mgg_log_ConsoleLogging_initConsoleLog(JNIEnv *env, jclass clazz) {
     Forever::LogSettings log_settings;
     log_settings.min_log_level = Forever::LOG_INFO;
     Forever::SetLogSettings(log_settings);
@@ -14,12 +15,18 @@ Java_com_mgg_log_Logging_initConsoleLog(JNIEnv *env, jclass clazz) {
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_mgg_log_Logging_testPrintLog(JNIEnv *env, jclass clazz) {
+Java_com_mgg_log_ConsoleLogging_testPrintLog(JNIEnv *env, jclass clazz) {
     const char* msg1 = "test message";
     const char* msg2 = "hello";
     const char* msg3 = "logging";
     const char* msg4 = "Another message";
     const char* msg5 = "Foo";
+
+    Forever::jni::ScopedJavaLocalRef<jclass> string_class(
+            env, env->FindClass("java/lang/String"));
+    if (string_class.is_null()) {
+        FML_LOG(ERROR) << "Could not locate String class";
+    }
 
     FML_LOG(INFO) << msg1;
     FML_LOG(WARNING) << msg2;

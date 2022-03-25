@@ -1,6 +1,6 @@
 package com.mgg.log
 
-class Logging{
+class ConsoleLogging{
 
     companion object {
         // Used to load the 'log' library on application startup.

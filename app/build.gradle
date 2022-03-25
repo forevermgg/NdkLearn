@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+    implementation implementation(project(':FileLog'))
     // https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
     compileOnly 'javax.annotation:javax.annotation-api:1.3.2'
@@ -62,6 +63,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation(project(":log"))
+    implementation implementation(project(':ConsoleLog'))
     // implementation("org.gradle.android.cache-fix:org.gradle.android.cache-fix.gradle.plugin:2.5.0")
 }

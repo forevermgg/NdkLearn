@@ -11,9 +11,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/ConsoleLog" />
+            <option value="$PROJECT_DIR$/FileLog" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/breakpad" />
-            <option value="$PROJECT_DIR$/log" />
             <option value="$PROJECT_DIR$/qjniobject" />
             <option value="$PROJECT_DIR$/variant" />
           </set>

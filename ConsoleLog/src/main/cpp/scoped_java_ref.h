@@ -117,7 +117,9 @@ class ScopedJavaLocalRef : public JavaRef<T> {
   // ownership  of this local reference.
   ScopedJavaLocalRef(JNIEnv* env, T obj) : JavaRef<T>(env, obj), env_(env) {}
 
-  ~ScopedJavaLocalRef() { this->Reset(); }
+  ~ScopedJavaLocalRef() {
+    this->Reset();
+  }
 
   // Overloaded assignment operator defined for consistency with the implicit
   // copy constructor.

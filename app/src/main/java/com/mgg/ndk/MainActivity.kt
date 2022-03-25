@@ -3,7 +3,7 @@ package com.mgg.ndk
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.mgg.log.Logging
+import com.mgg.log.ConsoleLogging
 import com.mgg.ndk.databinding.ActivityMainBinding
 import io.realm.internal.core.NativeRealmAny
 import timber.log.Timber
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         val objectId = org.bson.types.ObjectId.get()
         val nativeCreateObjectId = NativeRealmAny(objectId)
         Timber.e("nativeCreateObjectId:${nativeCreateObjectId.asObjectId()}" + " objectId:${objectId}")
-        Logging.testPrintLog()
+        ConsoleLogging.testPrintLog()
     }
 
     /**
