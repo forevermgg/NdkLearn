@@ -32,4 +32,4 @@ std::u16string Utf8ToUtf16(const std::string_view string) {
   return converter.from_bytes(string.data());
 }
 
-}  // namespace fml
+}  // namespace Forever

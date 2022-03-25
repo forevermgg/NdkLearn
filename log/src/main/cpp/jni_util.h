@@ -33,12 +33,10 @@ std::vector<std::string> StringArrayToVector(JNIEnv* env, jobjectArray jargs);
 std::vector<std::string> StringListToVector(JNIEnv* env, jobject list);
 
 ScopedJavaLocalRef<jobjectArray> VectorToStringArray(
-    JNIEnv* env,
-    const std::vector<std::string>& vector);
+    JNIEnv* env, const std::vector<std::string>& vector);
 
 ScopedJavaLocalRef<jobjectArray> VectorToBufferArray(
-    JNIEnv* env,
-    const std::vector<std::vector<uint8_t>>& vector);
+    JNIEnv* env, const std::vector<std::vector<uint8_t>>& vector);
 
 bool HasException(JNIEnv* env);
 

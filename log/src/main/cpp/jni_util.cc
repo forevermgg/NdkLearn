@@ -145,8 +145,7 @@ std::vector<std::string> StringListToVector(JNIEnv* env, jobject list) {
 }
 
 ScopedJavaLocalRef<jobjectArray> VectorToStringArray(
-    JNIEnv* env,
-    const std::vector<std::string>& vector) {
+    JNIEnv* env, const std::vector<std::string>& vector) {
   FML_DCHECK(env);
   ScopedJavaLocalRef<jclass> string_clazz(env,
                                           env->FindClass("java/lang/String"));
@@ -162,8 +161,7 @@ ScopedJavaLocalRef<jobjectArray> VectorToStringArray(
 }
 
 ScopedJavaLocalRef<jobjectArray> VectorToBufferArray(
-    JNIEnv* env,
-    const std::vector<std::vector<uint8_t>>& vector) {
+    JNIEnv* env, const std::vector<std::vector<uint8_t>>& vector) {
   FML_DCHECK(env);
   ScopedJavaLocalRef<jclass> byte_buffer_clazz(
       env, env->FindClass("java/nio/ByteBuffer"));
@@ -181,9 +179,7 @@ ScopedJavaLocalRef<jobjectArray> VectorToBufferArray(
   return ScopedJavaLocalRef<jobjectArray>(env, java_array);
 }
 
-bool HasException(JNIEnv* env) {
-  return env->ExceptionCheck() != JNI_FALSE;
-}
+bool HasException(JNIEnv* env) { return env->ExceptionCheck() != JNI_FALSE; }
 
 bool ClearException(JNIEnv* env) {
   if (!HasException(env)) {

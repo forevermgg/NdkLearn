@@ -19,9 +19,7 @@ class LogMessageVoidify {
 
 class LogMessage {
  public:
-  LogMessage(LogSeverity severity,
-             const char* file,
-             int line,
+  LogMessage(LogSeverity severity, const char* file, int line,
              const char* condition);
   ~LogMessage();
 
@@ -47,17 +45,20 @@ bool ShouldCreateLogMessage(LogSeverity severity);
 
 }  // namespace Forever
 
-#define FML_LOG_STREAM(severity) \
-  ::Forever::LogMessage(::Forever::LOG_##severity, __FILE__, __LINE__, nullptr).stream()
+#define FML_LOG_STREAM(severity)                                       \
+  ::Forever::LogMessage(::Forever::LOG_##severity, __FILE__, __LINE__, \
+                        nullptr)                                       \
+      .stream()
 
 #define FML_LAZY_STREAM(stream, condition) \
   !(condition) ? (void)0 : ::Forever::LogMessageVoidify() & (stream)
 
-#define FML_EAT_STREAM_PARAMETERS(ignored) \
-  true || (ignored)                        \
-      ? (void)0                            \
-      : ::Forever::LogMessageVoidify() &       \
-            ::Forever::LogMessage(::Forever::LOG_FATAL, 0, 0, nullptr).stream()
+#define FML_EAT_STREAM_PARAMETERS(ignored)                             \
+  true || (ignored)                                                    \
+      ? (void)0                                                        \
+      : ::Forever::LogMessageVoidify() &                               \
+            ::Forever::LogMessage(::Forever::LOG_FATAL, 0, 0, nullptr) \
+                .stream()
 
 #define FML_LOG_IS_ON(severity) \
   (::Forever::ShouldCreateLogMessage(::Forever::LOG_##severity))
@@ -65,11 +66,11 @@ bool ShouldCreateLogMessage(LogSeverity severity);
 #define FML_LOG(severity) \
   FML_LAZY_STREAM(FML_LOG_STREAM(severity), FML_LOG_IS_ON(severity))
 
-#define FML_CHECK(condition)                                              \
-  FML_LAZY_STREAM(                                                        \
-      ::Forever::LogMessage(::Forever::LOG_FATAL, __FILE__, __LINE__, #condition) \
-          .stream(),                                                      \
-      !(condition))
+#define FML_CHECK(condition)                                            \
+  FML_LAZY_STREAM(::Forever::LogMessage(::Forever::LOG_FATAL, __FILE__, \
+                                        __LINE__, #condition)           \
+                      .stream(),                                        \
+                  !(condition))
 
 #define FML_VLOG_IS_ON(verbose_level) \
   ((verbose_level) <= ::Forever::GetVlogVerbosity())
@@ -92,7 +93,7 @@ bool ShouldCreateLogMessage(LogSeverity severity);
 #define FML_UNREACHABLE()                          \
   {                                                \
     FML_LOG(ERROR) << "Reached unreachable code."; \
-    ::Forever::KillProcess();                          \
+    ::Forever::KillProcess();                      \
   }
 
 #endif  // FOREVER_FML_LOGGING_H_

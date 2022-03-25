@@ -2,12 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "logging.h"
+
 #include <algorithm>
 #include <iostream>
 
 #include "build_config.h"
 #include "log_settings.h"
-#include "logging.h"
 
 #if defined(FML_OS_ANDROID)
 #include <android/log.h>
@@ -50,9 +51,7 @@ const char* StripPath(const char* path) {
 
 }  // namespace
 
-LogMessage::LogMessage(LogSeverity severity,
-                       const char* file,
-                       int line,
+LogMessage::LogMessage(LogSeverity severity, const char* file, int line,
                        const char* condition)
     : severity_(severity), file_(file), line_(line) {
 #if !defined(OS_FUCHSIA)
@@ -131,16 +130,12 @@ LogMessage::~LogMessage() {
   }
 }
 
-int GetVlogVerbosity() {
-  return std::max(-1, LOG_INFO - GetMinLogLevel());
-}
+int GetVlogVerbosity() { return std::max(-1, LOG_INFO - GetMinLogLevel()); }
 
 bool ShouldCreateLogMessage(LogSeverity severity) {
   return severity >= GetMinLogLevel();
 }
 
-void KillProcess() {
-  abort();
-}
+void KillProcess() { abort(); }
 
 }  // namespace Forever

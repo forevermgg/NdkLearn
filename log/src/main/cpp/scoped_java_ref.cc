@@ -4,8 +4,8 @@
 
 #include "scoped_java_ref.h"
 
-#include "logging.h"
 #include "jni_util.h"
+#include "logging.h"
 
 namespace Forever {
 namespace jni {
@@ -24,9 +24,7 @@ ScopedJavaLocalFrame::ScopedJavaLocalFrame(JNIEnv* env, int capacity)
   FML_DCHECK(!failed);
 }
 
-ScopedJavaLocalFrame::~ScopedJavaLocalFrame() {
-  env_->PopLocalFrame(NULL);
-}
+ScopedJavaLocalFrame::~ScopedJavaLocalFrame() { env_->PopLocalFrame(NULL); }
 
 JavaRef<jobject>::JavaRef() : obj_(NULL) {}
 

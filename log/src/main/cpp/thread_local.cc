@@ -17,9 +17,7 @@ ThreadLocalPointer::~ThreadLocalPointer() {
   FML_CHECK(pthread_key_delete(key_) == 0);
 }
 
-void* ThreadLocalPointer::get() const {
-  return pthread_getspecific(key_);
-}
+void* ThreadLocalPointer::get() const { return pthread_getspecific(key_); }
 
 void* ThreadLocalPointer::swap(void* ptr) {
   void* old_ptr = get();
@@ -33,4 +31,3 @@ void* ThreadLocalPointer::swap(void* ptr) {
 
 }  // namespace internal
 }  // namespace Forever
-
