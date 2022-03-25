@@ -318,7 +318,7 @@ void Variant::Clear(Type new_type) {
       break;
     }
     case kInternalTypeMutableBlob: {
-      uint8_t* prev_data = const_cast<uint8_t*>(value_.blob_value.ptr);
+      auto* prev_data = const_cast<uint8_t*>(value_.blob_value.ptr);
       set_blob_pointer(nullptr, 0);
       delete[] prev_data;
       break;
