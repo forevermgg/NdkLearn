@@ -1,7 +1,7 @@
 #include "variant.h"
 
-#include <limits.h>
-#include <stdlib.h>
+#include <climits>
+#include <cstdlib>
 
 #include <cassert>
 #include <iomanip>

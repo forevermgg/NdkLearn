@@ -64,14 +64,14 @@ jobject StdVectorToJavaList(JNIEnv* env,
 void StdMapToJavaMap(JNIEnv* env, jobject* to,
                      const std::map<const char*, const char*>& string_map) {
   jclass map_class = env->FindClass("java/util/Map");
-  jmethodID map_size_method_id = env->GetMethodID(map_class, "size", "()I");
-  jmethodID map_get_method_id = env->GetMethodID(
-      map_class, "get", "(Ljava/lang/Object;)Ljava/lang/Object;");
+  // jmethodID map_size_method_id = env->GetMethodID(map_class, "size", "()I");
+  /*jmethodID map_get_method_id = env->GetMethodID(
+      map_class, "get", "(Ljava/lang/Object;)Ljava/lang/Object;");*/
   jmethodID map_put_method_id = env->GetMethodID(
       map_class, "put",
       "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
-  jmethodID map_remove_method_id = env->GetMethodID(
-      map_class, "remove", "(Ljava/lang/Object;)Ljava/lang/Object;");
+  /*jmethodID map_remove_method_id = env->GetMethodID(
+      map_class, "remove", "(Ljava/lang/Object;)Ljava/lang/Object;");*/
   for (auto it : string_map) {
     jstring key = env->NewStringUTF(it.first);
     jstring value = env->NewStringUTF(it.second);
@@ -92,9 +92,9 @@ void StdMapToJavaMap(JNIEnv* env, jobject* to,
   jmethodID map_put_method_id = env->GetMethodID(
       map_class, "put",
       "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
-  for (const auto & iter : from) {
-    jstring key = env->NewStringUTF(iter.first.c_str());
-    jstring value = env->NewStringUTF(iter.second.c_str());
+  for (const auto & item : from) {
+    jstring key = env->NewStringUTF(item.first.c_str());
+    jstring value = env->NewStringUTF(item.second.c_str());
     jobject previous =
         env->CallObjectMethod(*to, map_put_method_id, key, value);
     CheckAndClearJniExceptions(env);
@@ -198,8 +198,8 @@ void JavaListToStdStringVector(JNIEnv* env, std::vector<std::string>* vector,
       env->GetMethodID(array_list_class, "size", "()I");
   jmethodID list_get_method_id =
       env->GetMethodID(array_list_class, "get", "(I)Ljava/lang/Object;");
-  jmethodID list_set_method_id = env->GetMethodID(
-      array_list_class, "set", "(ILjava/lang/Object;)Ljava/lang/Object;");
+  /*jmethodID list_set_method_id = env->GetMethodID(
+      array_list_class, "set", "(ILjava/lang/Object;)Ljava/lang/Object;");*/
   int size = env->CallIntMethod(from, list_size_method_id);
   CheckAndClearJniExceptions(env);
   vector->clear();
@@ -219,8 +219,8 @@ void JavaObjectListToStdStringVector(JNIEnv* env, std::vector<std::string>* to,
       env->GetMethodID(array_list_class, "size", "()I");
   jmethodID list_get_method_id =
       env->GetMethodID(array_list_class, "get", "(I)Ljava/lang/Object;");
-  jmethodID list_set_method_id = env->GetMethodID(
-      array_list_class, "set", "(ILjava/lang/Object;)Ljava/lang/Object;");
+  /*jmethodID list_set_method_id = env->GetMethodID(
+      array_list_class, "set", "(ILjava/lang/Object;)Ljava/lang/Object;");*/
   int size = env->CallIntMethod(from, list_size_method_id);
   CheckAndClearJniExceptions(env);
   to->clear();
@@ -261,17 +261,17 @@ std::string JniObjectToString(JNIEnv* env, jobject obj) {
 std::string JStringToString(JNIEnv* env, jobject string_object) {
   if (string_object == nullptr) return "";
   const char* string_buffer =
-      env->GetStringUTFChars(static_cast<jstring>(string_object), 0);
+      env->GetStringUTFChars(reinterpret_cast<jstring>(string_object), 0);
   std::string return_string(string_buffer);
-  env->ReleaseStringUTFChars(static_cast<jstring>(string_object),
+  env->ReleaseStringUTFChars(reinterpret_cast<jstring>(string_object),
                              string_buffer);
   return return_string;
 }
 
 bool JBooleanToBool(JNIEnv* env, jobject obj) {
   jclass boolean_class = env->FindClass("java/lang/Boolean");
-  jmethodID bool_constructor_method_id =
-      env->GetMethodID(boolean_class, "<init>", "(Z)V");
+  /*jmethodID bool_constructor_method_id =
+      env->GetMethodID(boolean_class, "<init>", "(Z)V");*/
   jmethodID bool_value_method_id =
       env->GetMethodID(boolean_class, "booleanValue", "()Z");
   CheckAndClearJniExceptions(env);
@@ -280,8 +280,8 @@ bool JBooleanToBool(JNIEnv* env, jobject obj) {
 
 uint8_t JByteToUInt8(JNIEnv* env, jobject obj) {
   jclass byte_class = env->FindClass("java/lang/Byte");
-  jmethodID byte_constructor_method_id =
-      env->GetMethodID(byte_class, "<init>", "(B)V");
+  /*jmethodID byte_constructor_method_id =
+      env->GetMethodID(byte_class, "<init>", "(B)V");*/
   jmethodID byte_value_method_id =
       env->GetMethodID(byte_class, "byteValue", "()B");
   CheckAndClearJniExceptions(env);
@@ -290,8 +290,8 @@ uint8_t JByteToUInt8(JNIEnv* env, jobject obj) {
 
 char JCharToChar(JNIEnv* env, jobject obj) {
   jclass char_class = env->FindClass("java/lang/Character");
-  jmethodID char_constructor_method_id =
-      env->GetMethodID(char_class, "<init>", "(C)V");
+  /*jmethodID char_constructor_method_id =
+      env->GetMethodID(char_class, "<init>", "(C)V");*/
   jmethodID char_value_method_id =
       env->GetMethodID(char_class, "charValue", "()C");
   CheckAndClearJniExceptions(env);
@@ -301,8 +301,8 @@ char JCharToChar(JNIEnv* env, jobject obj) {
 
 int16_t JShortToInt16(JNIEnv* env, jobject obj) {
   jclass short_class = env->FindClass("java/lang/Short");
-  jmethodID short_constructor_method_id =
-      env->GetMethodID(short_class, "<init>", "(S)V");
+  /*jmethodID short_constructor_method_id =
+      env->GetMethodID(short_class, "<init>", "(S)V");*/
   jmethodID short_value_method_id =
       env->GetMethodID(short_class, "shortValue", "()S");
   CheckAndClearJniExceptions(env);
@@ -311,8 +311,8 @@ int16_t JShortToInt16(JNIEnv* env, jobject obj) {
 
 int JIntegerToInt(JNIEnv* env, jobject obj) {
   jclass int_class = env->FindClass("java/lang/Integer");
-  jmethodID int_constructor_method_id =
-      env->GetMethodID(int_class, "<init>", "(I)V");
+  /*jmethodID int_constructor_method_id =
+      env->GetMethodID(int_class, "<init>", "(I)V");*/
   jmethodID int_value_method_id =
       env->GetMethodID(int_class, "intValue", "()I");
   CheckAndClearJniExceptions(env);
@@ -321,8 +321,8 @@ int JIntegerToInt(JNIEnv* env, jobject obj) {
 
 int64_t JLongToInt64(JNIEnv* env, jobject obj) {
   jclass long_class = env->FindClass("java/lang/Long");
-  jmethodID long_constructor_method_id =
-      env->GetMethodID(long_class, "<init>", "(J)V");
+  /*jmethodID long_constructor_method_id =
+      env->GetMethodID(long_class, "<init>", "(J)V");*/
   jmethodID long_value_method_id =
       env->GetMethodID(long_class, "longValue", "()J");
   CheckAndClearJniExceptions(env);
@@ -454,7 +454,7 @@ FOREVER::Variant JDoubleArrayToVariant(JNIEnv* env, jdoubleArray array) {
 }
 
 // Allow macros to iterate through all the primitive JNI types.
-#define FIREBASE_JNI_PRIMITIVE_TYPES(X)                       \
+/*#define FIREBASE_JNI_PRIMITIVE_TYPES(X)                       \
   X(boolean_class, "[Z", jboolean, Boolean, bool, Bool, "%d") \
   X(byte_class, "[B", jbyte, Byte, uint8_t, UInt8, "%d")      \
   X(character_class, "[C", jchar, Char, char, Char, "%c")     \
@@ -462,7 +462,7 @@ FOREVER::Variant JDoubleArrayToVariant(JNIEnv* env, jdoubleArray array) {
   X(integer_class, "[I", jint, Int, int, Int, "%d")           \
   X(long_class, "[J", jlong, Long, int64_t, Int64, "%ld")     \
   X(float_class, "[F", jfloat, Float, float, Float, "%f")     \
-  X(double_class, "[D", jdouble, Double, double, Double, "%f")
+  X(double_class, "[D", jdouble, Double, double, Double, "%f")*/
 
 bool IsJBooleanArray(JNIEnv* env, jobject obj) {
   jclass array_class = env->FindClass("[Z");
@@ -538,8 +538,8 @@ std::vector<unsigned char> JniByteArrayToVector(JNIEnv* env, jobject array) {
 // Convert a byte buffer and size into a jbyteArray.
 jbyteArray ByteBufferToJavaByteArray(JNIEnv* env, const uint8_t* data,
                                      size_t size) {
-  jbyteArray output_array = env->NewByteArray(size);
-  env->SetByteArrayRegion(output_array, 0, size,
+  jbyteArray output_array = env->NewByteArray(static_cast<int>(size));
+  env->SetByteArrayRegion(output_array, 0, static_cast<int>(size),
                           reinterpret_cast<const jbyte*>(data));
   return output_array;
 }
@@ -737,8 +737,8 @@ void JavaListToVariantList(JNIEnv* env, std::vector<FOREVER::Variant>* to,
       env->GetMethodID(array_list_class, "size", "()I");
   jmethodID list_get_method_id =
       env->GetMethodID(array_list_class, "get", "(I)Ljava/lang/Object;");
-  jmethodID list_set_method_id = env->GetMethodID(
-      array_list_class, "set", "(ILjava/lang/Object;)Ljava/lang/Object;");
+  /*jmethodID list_set_method_id = env->GetMethodID(
+      array_list_class, "set", "(ILjava/lang/Object;)Ljava/lang/Object;");*/
   int size = env->CallIntMethod(from, list_size_method_id);
   CheckAndClearJniExceptions(env);
   to->clear();
@@ -812,7 +812,7 @@ FOREVER::Variant JObjectArrayToVariant(JNIEnv* env, jobjectArray array) {
 
   // Loop through array converted each object into a Variant.
   for (size_t i = 0; i < len; ++i) {
-    jobject obj = env->GetObjectArrayElement(array, i);
+    jobject obj = env->GetObjectArrayElement(array, static_cast<int>(i));
     vec->push_back(JavaObjectToVariant(env, obj));
     env->DeleteLocalRef(obj);
   }
