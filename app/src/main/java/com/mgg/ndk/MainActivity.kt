@@ -3,6 +3,7 @@ package com.mgg.ndk
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.mgg.filelog.Log
 import com.mgg.log.ConsoleLogging
 import com.mgg.ndk.databinding.ActivityMainBinding
 import io.realm.internal.core.NativeRealmAny
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         val nativeCreateObjectId = NativeRealmAny(objectId)
         Timber.e("nativeCreateObjectId:${nativeCreateObjectId.asObjectId()}" + " objectId:${objectId}")
         ConsoleLogging.testPrintLog()
+        Log().getInstance()?.e("mgg", "test mgg")
     }
 
     /**

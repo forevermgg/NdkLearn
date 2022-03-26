@@ -19,9 +19,20 @@ add_library( # Sets the name of the library.
 
         # Sets the library as a shared library.
         SHARED
-
+        include/firebase/internal/common.h
+        include/firebase/internal/mutex.h
+        include/firebase/internal/platform.h
+        include/firebase/internal/type_traits.h
+        assert.h
+        log.h
+        log.cc
+        logger.h
+        logger.cc
+        log_android.cc
+        mutex_pthread.cc
+        log_android_callback.cc
         # Provides a relative path to your source file(s).
-        filelog.cpp)
+        )
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
