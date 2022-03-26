@@ -7,6 +7,3 @@
 [submodule "third-party/variant"]
 	path = third-party/variant
 	url = https://github.com/mpark/variant.git
-[submodule "third-party/breakpad"]
-	path = third-party/breakpad
-	url = https://chromium.googlesource.com/breakpad/breakpad
