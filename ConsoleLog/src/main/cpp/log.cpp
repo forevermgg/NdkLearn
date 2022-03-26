@@ -3,7 +3,6 @@
 #include "log_settings.h"
 #include "logging.h"
 #include "scoped_java_ref.h"
-#include "logger.hpp"
 #include "jni_util.h"
 
 extern "C"
@@ -41,5 +40,5 @@ Java_com_mgg_log_Logger_testPrintLog(JNIEnv *env, jclass clazz) {
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_mgg_log_Logger_initLogger(JNIEnv *env, jclass clazz, jstring path_dir) {
-    Forever::jni::JavaStringToString(env, path_dir)
+    Forever::jni::JavaStringToString(env, path_dir);
 }
