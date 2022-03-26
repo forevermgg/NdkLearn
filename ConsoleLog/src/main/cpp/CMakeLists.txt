@@ -9,6 +9,11 @@ cmake_minimum_required(VERSION 3.18.1)
 
 project("log")
 
+get_filename_component(DSPDLOG_SRC_DIR ${SPDLOG_SRC} ABSOLUTE)
+message("DSPDLOG_SRC: " ${SPDLOG_SRC})
+message("CMAKE_SOURCE_DIR: " ${CMAKE_SOURCE_DIR})
+message("DSPDLOG_SRC_DIR: " ${DSPDLOG_SRC_DIR})
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -42,6 +47,8 @@ add_library( # Sets the name of the library.
         jni_weak_ref.h
         jni_weak_ref.cc
         log.cpp)
+
+include_directories(${DSPDLOG_SRC_DIR}/include/)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by

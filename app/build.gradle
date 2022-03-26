@@ -15,12 +15,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        // print "-DFLATBUFFERS_SRC=${rootProject.projectDir}/.."
         externalNativeBuild {
             cmake {
                 cppFlags '-std=c++17'
-                // arguments "-DFLATBUFFERS_SRC=${rootProject.projectDir}/app/src/main/cpp/"
-                // abiFilters "armeabi-v7a" , "arm64-v8a"
             }
         }
     }
@@ -50,7 +47,7 @@ android {
 }
 
 dependencies {
-    implementation implementation(project(':FileLog'))
+    // implementation implementation(project(':FileLog'))
     // https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
     compileOnly 'javax.annotation:javax.annotation-api:1.3.2'

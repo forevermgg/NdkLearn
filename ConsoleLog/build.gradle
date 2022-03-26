@@ -15,7 +15,8 @@ android {
         consumerProguardFiles "consumer-rules.pro"
         externalNativeBuild {
             cmake {
-                cppFlags '-std=c++17'
+                cppFlags '-std=c++17 -D__STDC_LIMIT_MACROS'
+                arguments "-DSPDLOG_SRC=${rootProject.projectDir}/third_party/spdlog"
             }
         }
     }

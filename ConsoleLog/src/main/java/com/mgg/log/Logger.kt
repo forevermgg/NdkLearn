@@ -1,6 +1,6 @@
 package com.mgg.log
 
-class ConsoleLogging{
+class Logger{
 
     companion object {
         // Used to load the 'log' library on application startup.
@@ -11,6 +11,9 @@ class ConsoleLogging{
 
         @JvmStatic
         private external fun initConsoleLog()
+
+        @JvmStatic
+        external fun initLogger(pathDir: String)
 
         @JvmStatic
         external fun testPrintLog()
