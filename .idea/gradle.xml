@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/FileLog" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/breakpad" />
-            <option value="$PROJECT_DIR$/qjniobject" />
             <option value="$PROJECT_DIR$/variant" />
           </set>
         </option>

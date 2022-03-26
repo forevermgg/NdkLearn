@@ -16,6 +16,5 @@ rootProject.name = "NdkLearn"
 include ':app'
 include ':variant'
 include ':breakpad'
-include ':qjniobject'
 include ':ConsoleLog'
 include ':FileLog'
