@@ -52,6 +52,7 @@ add_library( # Sets the name of the library.
         ${BREAKPAD_SRC_DIR}/src/common/linux/linux_libc_support.cc
         ${BREAKPAD_SRC_DIR}/src/common/linux/memory_mapped_file.cc
         ${BREAKPAD_SRC_DIR}/src/common/linux/safe_readlink.cc
+        ${BREAKPAD_SRC_DIR}/src/third_party/lss/linux_syscall_support.h
         ${BREAKPAD_ASM_SOURCE}
         )
 
