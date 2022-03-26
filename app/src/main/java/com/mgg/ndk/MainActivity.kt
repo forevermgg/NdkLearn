@@ -1,6 +1,7 @@
 package com.mgg.ndk
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mgg.filelog.Log
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         Timber.e("nativeCreateObjectId:${nativeCreateObjectId.asObjectId()}" + " objectId:${objectId}")
         ConsoleLogging.testPrintLog()
         Log().getInstance()?.e("mgg", "test mgg")
+        // SharedPreferences
     }
 
     /**

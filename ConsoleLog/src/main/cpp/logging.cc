@@ -51,9 +51,9 @@ const char* StripPath(const char* path) {
 
 }  // namespace
 
-LogMessage::LogMessage(LogSeverity severity, const char* file, int line,
+LogMessage::LogMessage(LogSeverity severity, const char* file, int line, const char* function,
                        const char* condition)
-    : severity_(severity), file_(file), line_(line) {
+    : severity_(severity), file_(file), line_(line), function_(function) {
 #if !defined(OS_FUCHSIA)
   stream_ << "[";
   if (severity >= LOG_INFO) {
@@ -62,7 +62,7 @@ LogMessage::LogMessage(LogSeverity severity, const char* file, int line,
     stream_ << "VERBOSE" << -severity;
   }
   stream_ << ":" << (severity > LOG_INFO ? StripDots(file_) : StripPath(file_))
-          << "(" << line_ << ")] ";
+          << "(" << line_ << ")] " << function_ << " ";
 #endif
 
   if (condition) {
