@@ -2,11 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/third-party/breakpad" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/third-party/breakpad/src/t" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/third-party/breakpad/src/third_party/lss" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/third-party/json" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/third-party/spdlog" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/third-party/variant" vcs="Git" />
   </component>
 </project>
